@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Empire</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; }
+        .container { max-width: 400px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💼 Business Empire</h1>
+        <p>Баланс: <span id="balance">10000</span> $</p>
+        <button onclick="invest()">📈 Инвестировать</button>
+        <button onclick="withdraw()">💵 Снять деньги</button>
+        <button onclick="viewRanking()">🏆 Рейтинг</button>
+    </div>
+
+    <script>
+        const API_URL = "https://your-replit-url.repl.co"; // Вставь ссылку из Replit
+
+        function invest() {
+            fetch(API_URL + "/invest", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: Telegram.WebApp.initDataUnsafe.user.id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('balance').innerText = data.balance;
+                alert(data.message);
+            });
+        }
+
+        function withdraw() {
+            fetch(API_URL + "/withdraw", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: Telegram.WebApp.initDataUnsafe.user.id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('balance').innerText = data.balance;
+                alert(data.message);
+            });
+        }
+    </script>
+</body>
+</html>
